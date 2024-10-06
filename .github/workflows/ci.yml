@@ -1,13 +1,28 @@
-FROM debian:bullseye-slim
+name: Build and Run C Program
 
-RUN apt-get update && \
-    apt-get install -y gcc make && \
-    apt-get clean
+on:
+  push:
+    branches:
+      - main
 
-WORKDIR /app
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-COPY hello.c .
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-RUN gcc hello.c -o hello
+      - name: Install GCC
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc
 
-CMD ["./hello"]
+      - name: Compile C program
+        run: |
+          gcc hello.c -o hello
+
+      - name: Run C program
+        run: |
+          ./hello
+

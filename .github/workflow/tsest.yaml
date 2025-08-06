@@ -1,0 +1,16 @@
+name: Bulid Docker Image
+  on:
+    push:
+     branches:
+      - main
+  jobs:
+    docker-build:
+      runs-on: ubuntu-latest
+      steps:
+      -name: checkout source code
+       uses: action/checkout@v4
+       -name: Set up Docker Bulidx
+       uses: docker/setup-bulidx-action@v3
+       -name : bulid and push Doker image
+       uses: docker/build-push-action@v5
+    
